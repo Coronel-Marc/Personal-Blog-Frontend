@@ -1,18 +1,22 @@
-import {Navigate} from 'react-router-dom';
-//import {useAuth} from '@/context/AuthContext';
+import {Navigate, useLocation} from 'react-router-dom';
+import {useAuth} from '@/context/AuthContext';
 
 interface ProtectedRouteProps {
     children: React.ReactNode
 }
 
 export const ProtectedRoute = ({children}: ProtectedRouteProps) => {
-    //cont {isAuthenticated} = useAuth()
+    const { isAuthenticated, isLoading } = useAuth()
+    const location = useLocation();
 
-    const isAuthenticated = false; // TODO: substituir pela verificação real de autenticação
+    if (isLoading) {
+        return <div>Carregando...</div>
+    }
 
     if (!isAuthenticated) {
-        return <Navigate to="/login" replace />
+        return <Navigate to="/login" state={{ from: location }} replace />
     }
-    
+
+ 
     return children
 }
