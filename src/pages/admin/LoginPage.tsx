@@ -4,6 +4,9 @@ import { useAuth } from '@/context/AuthContext'
 import { authService } from '@/services/authService'
 import type { LoginPayload } from '@/types/api'
 
+import {Input} from '@/components/ui/Input'
+import {Button} from '@/components/ui/Button'
+
 export const LoginPage = () => {
   const navigate = useNavigate()
   const location = useLocation()
@@ -39,54 +42,56 @@ export const LoginPage = () => {
 
   // TODO: Substituir este HTML por Átomos e Moléculas (Input, Button)
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100">
+    <div className="flex min-h-screen items-center justify-center">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md rounded bg-white p-8 shadow-md"
+        className="w-full max-w-md rounded-lg bg-secondary p-8 shadow-md"
       >
         <h2 className="mb-6 text-center text-2xl font-bold">Login Admin</h2>
         
         {error && (
-          <div className="mb-4 rounded bg-red-100 p-3 text-center text-red-700">
+          <div className="mb-4 rounded-md bg-destructive p-3 text-center text-sm text-destructive-foreground">
             {error}
           </div>
         )}
 
         <div className="mb-4">
-          <label htmlFor="email" className="mb-2 block text-sm font-bold">
+          <label htmlFor="email" className="mb-2 block text-sm font-medium">
             Email
           </label>
-          <input
+          <Input
             id="email"
             type="email"
+            placeholder="admin@email.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full rounded border px-3 py-2" // Tailwind
+            disabled={isLoading}
           />
         </div>
 
         <div className="mb-6">
-          <label htmlFor="password" className="mb-2 block text-sm font-bold">
+          <label htmlFor="password" className="mb-2 block text-sm font-medium">
             Senha
           </label>
-          <input
+          <Input
             id="password"
             type="password"
+            placeholder="••••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full rounded border px-3 py-2" // Tailwind
+            disabled={isLoading}
           />
         </div>
 
-        <button
+        <Button
           type="submit"
           disabled={isLoading}
-          className="w-full rounded bg-blue-500 py-2 font-bold text-white hover:bg-blue-700 disabled:opacity-50" // Tailwind
+          className="w-full"
         >
           {isLoading ? 'Entrando...' : 'Entrar'}
-        </button>
+        </Button>
       </form>
     </div>
   )
