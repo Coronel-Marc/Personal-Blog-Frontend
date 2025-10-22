@@ -4,31 +4,24 @@ import { cn } from '@/utils/cn'
 
 const buttonVariants = cva(
   [
-    // --- Estilos Base (comuns a todas as variantes) ---
-  'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors',
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
-  'focus-visible:ring-primary focus-visible:ring-offset-background', // Foco Roxo
-  'disabled:pointer-events-none disabled:opacity-50', // Estilo desabilitado
+    // Estilos Base
+    'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
+    'focus-visible:ring-ring',
+    'focus-visible:ring-offset-primary-bg',
+    'disabled:pointer-events-none disabled:opacity-50', // Estilo desabilitado
   ],
 
   {
     variants: {
       // --- Prop: "variant" ---
       variant: {
-        // Variante Principal (Nosso Roxo Synthwave)
-        default: 'bg-primary text-primary-foreground hover:bg-primary/90',
-        
-        // Variante Destrutiva (Nosso Rosa/Vermelho)
-        destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
-        
-        // Variante Secundária (Nosso Cinza-azulado)
+        default: 'bg-primary text-primary-foreground hover:bg-primary/90',        
+        destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',        
         secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-
-        // Variante "Fantasma" (hover sutil)
         ghost: 'hover:bg-secondary hover:text-secondary-foreground',
-        
-        // Variante de Link (apenas texto)
-        link: 'text-primary underline-offset-4 hover:underline',
+        link: 'text-accent-neon underline-offset-4 hover:underline',
+        outline: 'border border-input bg-transparent hover:bg-accent hover:text-accent-foreground',
       },
       // --- Prop: "size" ---
       size: {

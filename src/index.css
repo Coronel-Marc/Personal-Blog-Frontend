@@ -2,8 +2,60 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @layer base {
+  
+  :root {
+    /* ----- TEMA CLARO ("Sunset Vibes") - Padrão ----- */
+    --primary-bg: 288 33% 97%; 
+    --secondary-bg: 330 21% 91%; 
+    --accent-neon: 44 100% 62%; 
+    --accent-neon-foreground: 258 41% 14%;
+    --text-dark: 240 21% 14%; 
+    --text-muted: 270 9% 38%; 
+    --danger-red: 342 62% 50%; 
+    --danger-red-foreground: 288 33% 97%;
+    
+    /* Variáveis adicionais do config (derivadas) */
+    --border: 330 21% 85%;
+    --input: 330 21% 80%;
+    --ring: 44 100% 62%;
+  }
+
+  .dark {
+    /* ----- TEMA ESCURO ("Night Rider") ----- */
+    --primary-bg: 226 53% 10%;
+    --secondary-bg: 228 39% 12%;
+    --accent-neon: 275 80% 56%;
+    --accent-neon-foreground: 220 13% 94%;
+    --text-dark: 220 13% 94%;
+    --text-muted: 270 23% 70%;
+    --danger-red: 350 80% 53%;
+    --danger-red-foreground: 220 13% 94%;
+    
+    /* Variáveis adicionais do config (derivadas) */
+    --border: 228 39% 22%;
+    --input: 228 39% 27%;
+    --ring: 275 80% 56%;
+  }
+  
   body {
-    @apply bg-background text-foreground;
+    @apply bg-primary-bg text-text-dark;
+    /* Adiciona transição suave para a troca de tema */
+    @apply transition-colors duration-500; 
   }
 }
+
+@layer components {
+  .neon-glow-button {
+    box-shadow: 0 0 15px hsl(var(--accent-neon) / 0.7), 0 0 25px hsl(var(--accent-neon) / 0.3);
+    @apply transition-all duration-300;
+  }
+  .neon-glow-button:hover {
+    box-shadow: 0 0 20px hsl(var(--accent-neon) / 0.9), 0 0 30px hsl(var(--accent-neon) / 0.5);
+  }
+}
+
+/* Adicionar keyframes aqui se desejar o fundo animado */
+/* @keyframes slow-pan { ... } */
+/* #dynamic-bg { ... animation: slow-pan ... } */

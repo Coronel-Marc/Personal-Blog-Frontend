@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
+
   content: [
     './index.html',
     './src/**/*.{js,ts,jsx,tsx}',
@@ -8,50 +10,47 @@ export default {
     extend: {
       colors: {
         // --- Paleta "Synthwave Dark" ---
-
-        // 1. FUNDO (O "Céu Noturno")
-        // Um cinza-azulado muito escuro. Mais rico que o preto puro.
-        // É "Tech" e "Escuro".
-        'background': '#0f172a', // (Tailwind 'slate-900')
+        'primary-bg': 'hsl(var(--primary-bg))', // Cor Primária de Fundo
+        'secondary-bg': 'hsl(var(--secondary-bg))', // Cor Secundária de Fundo (cards)
+        'accent-neon': 'hsl(var(--accent-neon))', // Cor de Destaque (botões, links)
+        'text-dark': 'hsl(var(--text-dark))', // Cor Principal de Texto
+        'text-muted': 'hsl(var(--text-muted))', // Cor de Texto Secundário/Apagado
+        'danger-red': 'hsl(var(--danger-red))', // Cor para Ações Destrutivas
         
-        // 2. TEXTO (As "Luzes Claras")
-        // O texto principal. Um cinza claro, para ser legível sem 
-        // ser um branco puro (que cansa os olhos).
-        'foreground': '#e2e8f0', // (Tailwind 'slate-200')
+        'border': 'hsl(var(--border))',   
+        'input': 'hsl(var(--input))',    
+        'ring': 'hsl(var(--ring))',
 
-        // 3. PRIMÁRIA (A Cor de Ação / O "Neon")
-        // Seu "Roxo". É "Ousado" e "Nostálgico".
+        // Aliases para facilitar o uso
+        'background': 'hsl(var(--primary-bg))', 
+        'foreground': 'hsl(var(--text-dark))', 
+
         'primary': {
-          DEFAULT: '#a855f7',     // (Tailwind 'purple-500')
-          'foreground': '#ffffff', // Texto em cima do roxo
+          DEFAULT: 'hsl(var(--accent-neon))',
+          foreground: 'hsl(var(--accent-neon-foreground))', // Cor do texto em cima do accent
         },
-        
-        // 4. SECUNDÁRIA (O "Metal da Moto")
-        // Para cartões e fundos sutis. Um cinza-azulado mais claro.
-        // É "Orgânico" (como metal) e "Tech".
         'secondary': {
-          DEFAULT: '#1e293b',     // (Tailwind 'slate-800')
-          'foreground': '#94a3b8', // Texto em cima do secundário
+          DEFAULT: 'hsl(var(--secondary-bg))',
+          foreground: 'hsl(var(--text-muted))', // Texto em cima do fundo secundário
         },
-
-        // 5. BORDAS E INPUTS (As "Divisões")
-        // Tons de cinza para linhas e inputs.
-        'border': '#334155',   // (Tailwind 'slate-700')
-        'input': '#475569',    // (Tailwind 'slate-600') - Um pouco mais claro
-
-        // 6. DESTRUTIVO (O "Alerta")
-        // Uma cor vibrante para erros, que combina com o neon.
         'destructive': {
-          DEFAULT: '#f43f5e',     // (Tailwind 'rose-500')
-          'foreground': '#ffffff',
+          DEFAULT: 'hsl(var(--danger-red))',
+          foreground: 'hsl(var(--danger-red-foreground))', // Texto em cima do vermelho
         },
-        // --- Fim da Paleta ---
+        'muted': { // Para texto ainda mais apagado
+          DEFAULT: 'hsl(var(--secondary-bg))', // Fundo sutil
+          foreground: 'hsl(var(--text-muted))', 
+        },
+        'accent': { // Um alias genérico para o neon
+           DEFAULT: 'hsl(var(--accent-neon))',
+           foreground: 'hsl(var(--accent-neon-foreground))',
+        },
       },
       borderRadius: {
-        'lg': '0.5rem',
-        'md': 'calc(0.5rem - 2px)', // Ex: Borda de 2px
-        'sm': 'calc(0.5rem - 4px)', // Ex: Borda de 4px
-      }
+        'lg': '0.75rem', 
+        'md': '0.5rem',
+        'sm': '0.25rem',
+      },
     },
   },
   plugins: [],

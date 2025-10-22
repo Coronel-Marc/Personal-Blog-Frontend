@@ -89,7 +89,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
 
     const isAuthenticated = !!user && !!token
-    const isAdmin = user?.roles.includes(Role.ADMIN) ?? false
+    const isAdmin = (user?.roles ?? []).includes(Role.ADMIN) 
 
     return (
         <AuthContext.Provider
