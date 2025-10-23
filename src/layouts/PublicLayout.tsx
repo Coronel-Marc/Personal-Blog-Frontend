@@ -1,18 +1,18 @@
 import { Outlet } from "react-router-dom";
+import { Header } from "@/components/shared/Header";
+import { Footer } from "@/components/shared/Footer";
 
 export const PublicLayout = () => {
     return (
         <div>
-            {/* TODO: Adicionar o Organimos <Header> aqui*/}
-            <header> Header Publico </header>
+            <Header />
 
-            <main>
+            <main className="flex-grow">
                 {/* Onde o React-router vai renderizar as rotas filhas */}
                 <Outlet />
             </main>
 
-            {/*TODO: Adicionar o Organimos <Footer> aqui*/}
-            <footer> Footer Publico </footer>
+            <Footer />
         </div>
     )
 }
