@@ -10,6 +10,7 @@ import { useAuth } from '@/context/AuthContext'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
 import { Badge } from '@/components/ui/Badge'
 import { AlertDialog } from '@/components/ui/AlertDialog'
+import { useNavigate } from 'react-router-dom'
 
 import {
   Table,
@@ -25,6 +26,7 @@ import { Pencil, Trash2 } from 'lucide-react'
 // import { Badge } from '@/components/ui/Badge'
 
 export const DashboardPage = () => {
+  const navigate = useNavigate()
   const { user } = useAuth()
 
   const [title, setTitle] = useState('')
@@ -113,8 +115,8 @@ export const DashboardPage = () => {
     setPostToDelete(null)
   }
 
-  const handleEditPost = (postId: string) => {
-    alert(`TODO: Implementar edição para Post ID: ${postId}`)
+  const handleEditPost = (slug: string) => {
+    navigate(`/admin/posts/editar/${slug}`)
     //openDeleteConfirmation(posts.find(p => p.id === postId)!, true);
   }
 
@@ -203,7 +205,7 @@ export const DashboardPage = () => {
                         <Button 
                           variant="ghost" 
                           size="icon" 
-                          onClick={() => handleEditPost(post.id)}
+                          onClick={() => handleEditPost(post.slug)}
                           className="text-accent-neon hover:text-accent-neon/80"
                           aria-label={`Editar post ${post.title}`}
                         >

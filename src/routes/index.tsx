@@ -2,7 +2,6 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 
 import { PublicLayout } from "@/layouts/PublicLayout";
 import { AdminLayout } from "@/layouts/AdminLayout";
-
 import { ProtectedRoute } from "@/routes/ProtectedRoute";
 
 import { HomePage } from "@/pages/public/HomePage";
@@ -13,6 +12,8 @@ import { PortfolioPage } from "@/pages/public/PortfolioPage";
 
 import { LoginPage } from "@/pages/admin/LoginPage";
 import { DashboardPage } from "@/pages/admin/DashboardPage";
+import { CreatePostPage } from '@/pages/admin/CreatePostPage'
+import { EditPostPage } from '@/pages/admin/EditPostPage'
 
 const router = createBrowserRouter([
     {
@@ -41,8 +42,17 @@ const router = createBrowserRouter([
             {
                 index: true,
                 element: <DashboardPage />
-            }
+            },
+            {
+                path: 'posts/novo',
+                element: <CreatePostPage />,
+            },
+            {
+                path: 'posts/editar/:slug',
+                element: <EditPostPage />,
+            },
             // TODO: Adicionar outras rotas admin aqui
+
         ],
     },
     {
