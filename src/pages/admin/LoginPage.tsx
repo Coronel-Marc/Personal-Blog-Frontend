@@ -40,7 +40,6 @@ export const LoginPage = () => {
     }
   }
 
-  // TODO: Substituir este HTML por Átomos e Moléculas (Input, Button)
   return (
     <div className="flex min-h-screen items-center justify-center">
       <form

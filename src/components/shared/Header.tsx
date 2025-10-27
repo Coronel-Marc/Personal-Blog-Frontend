@@ -14,7 +14,7 @@ export const Header = () => {
                 >
                     <Zap className="h-8 w-8" />
                     {/* TODO: Trocar 'BLOG NAME' pelo nome real do blog, que eu ainda não decidi qual é */}
-                    <span>BLOG NAME</span>
+                    <span>Marco Zero</span>
                 </Link>
 
                 <div className="flex items-center space-x-4 md:space-x-6">

@@ -29,7 +29,7 @@ export const AdminHeader = () => {
         <div className="flex items-center space-x-4">
           {/* Nome do usuário (escondido em telas pequenas) */}
           <span className="hidden font-medium text-text-dark sm:inline">
-            Bem-vindo, {user?.name || 'Admin'}
+            Bem-vindo, {user?.name|| 'Admin'}
           </span>
 
           {/* Toggle de Tema */}
