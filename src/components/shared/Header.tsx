@@ -20,7 +20,7 @@ export const Header = () => {
                 <div className="flex items-center space-x-4 md:space-x-6">
                     <div className="hidden items-center space-x-6 md:flex">
                         {/* TODO: Atualizar os links ('to') quando as rotas existirem */}
-                        <Link to="/home" className="font-medium text-text-dark transition duration-300 hover:text-accent-neon">
+                        <Link to="/" className="font-medium text-text-dark transition duration-300 hover:text-accent-neon">
                         Home
                         </Link>
                         <Link to="/about" className="font-medium text-text-dark transition duration-300 hover:text-accent-neon">
