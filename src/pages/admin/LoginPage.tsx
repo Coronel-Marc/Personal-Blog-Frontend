@@ -51,7 +51,7 @@ export const LoginPage = () => {
         
         {error && (
           <div className="mb-4 rounded-md bg-destructive p-3 text-center text-sm text-destructive-foreground">
-            {error}
+            Usuario ou senha invalidos.
           </div>
         )}
 

@@ -110,13 +110,13 @@ export const EditPostPage = () => {
       
       {/* Renderiza o PostForm passando os dados e funções */}
       <PostForm 
-        initialData={postData} // Passa os dados buscados
-        onSubmit={handleUpdate} // Passa a função de update
+        initialData={postData}
+        onSubmit={handleUpdate}
         isSubmitting={isSubmitting}
         submitError={submitError}
         submitSuccessMessage={submitSuccessMessage}
-        submitButtonText="Atualizar Post" // Texto customizado para o botão
-        cancelButton={cancelButton} // Passa o botão Cancelar
+        submitButtonText="Atualizar Post"
+        cancelButton={cancelButton}
       />
     </div>
   )

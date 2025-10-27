@@ -1,17 +1,45 @@
+/**
+ * Tô me perdendo demais com esse DashboardPage, então vou comentar (se eu me lembrar e se a IA me ajudar) o que cada parte faz.
+ * 
+ * Essa página lista os posts criados, permitindo editar ou excluir cada um.
+ * Usa o postService para buscar, editar e excluir posts via API. Conforme eu for me lembrando ou fazendo alteraçõces, vou comentando aqui.
+ * 
+ * Componentes principais usados:
+ * - Table, TableRow, TableCell: Para mostrar a lista de posts em tabela.
+ * - Badge: Para indicar o status do post (Publicado/Rascunho).
+ * - AlertDialog: Para confirmar exclusão de posts.
+ * - Button: Botões estilizados para ações.
+ * 
+ * Estados principais:
+ * - posts: Array dos posts buscados da API.
+ * - isLoadingPosts: Indica se os posts estão sendo carregados.
+ * - postsError: Armazena erros ao buscar posts.
+ * - isDeleteDialogOpen, postToDelete: Controlam o diálogo de confirmação de exclusão.
+ * 
+ * Efeitos:
+ * - useEffect na montagem para buscar os posts via postService.getAllAdminPosts().
+ * 
+ * Funções principais:
+ * - handleEditPost: Navega para a página de edição do post.
+ * - openDeleteConfirmation: Abre o diálogo de confirmação para excluir um post.
+ * - confirmDeletePost: Chama o serviço para excluir o post e atualiza a lista.
+ * - closeDeleteDialog: Fecha o diálogo de exclusão.
+ * 
+ * O layout geral é uma tabela com os posts, botões para editar/excluir, e um diálogo de confirmação para exclusão.
+ * 
+ * TODOs futuros:
+ * - Adicionar paginação se houver muitos posts.
+ * - Melhorar a UI para dispositivos móveis (ex: cards ao invés de tabela).
+ * - Adicionar filtros ou busca na lista de posts.
+ * 
+ * Espero que esses comentários ajudem a entender o que cada parte faz!
+ */
+
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { postService } from '@/services/postService'
 import { PostStatus } from '@/types/api'
-import type { PostPayload, Post, Page } from '@/types/api'
-import { Input } from '@/components/ui/Input'
-import { Textarea } from '@/components/ui/Textarea'
-import { Select } from '@/components/ui/Select'
-import { Button } from '@/components/ui/Button'
-import { useAuth } from '@/context/AuthContext'
-import { ThemeToggle } from '@/components/ui/ThemeToggle'
-import { Badge } from '@/components/ui/Badge'
-import { AlertDialog } from '@/components/ui/AlertDialog'
-import { useNavigate } from 'react-router-dom'
-
+import type { Post, Page } from '@/types/api'
 import {
   Table,
   TableHeader,
@@ -20,23 +48,16 @@ import {
   TableHead,
   TableCell,
 } from '@/components/ui/Table'
-
-import { Pencil, Trash2 } from 'lucide-react'
-
-// import { Badge } from '@/components/ui/Badge'
+import { Badge } from '@/components/ui/Badge'
+import { AlertDialog } from '@/components/ui/AlertDialog'
+import { Button } from '@/components/ui/Button'
+import { useAuth } from '@/context/AuthContext'
+import { ThemeToggle } from '@/components/ui/ThemeToggle'
+import { Pencil, Trash2, Plus } from 'lucide-react'
 
 export const DashboardPage = () => {
-  const navigate = useNavigate()
   const { user } = useAuth()
-
-  const [title, setTitle] = useState('')
-  const [content, setContent] = useState('') 
-  const [status, setStatus] = useState<PostStatus>(PostStatus.DRAFT) 
-  const [tags, setTags] = useState('') 
-  const [coverImageUrl, setCoverImageUrl] = useState('') 
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [formError, setFormError] = useState<string | null>(null)
-  const [successMessage, setSuccessMessage] = useState<string | null>(null)
+  const navigate = useNavigate()
 
   const [posts, setPosts] = useState<Post[]>([])
   const [isLoadingPosts, setIsLoadingPosts] = useState(true)
@@ -50,63 +71,39 @@ export const DashboardPage = () => {
       setIsLoadingPosts(true)
       setPostsError(null)
       try {
-        // Chama o serviço para buscar posts (página 0, tamanho 10 por padrão)
-        const postsPage: Page<Post> = await postService.getAllAdminPosts({ page: 0, size: 10 })
-        setPosts(postsPage.content) // Guarda apenas o array de posts
-      } catch (err) {
-        const apiErrorMessage = (err as Error).message
-        setPostsError(apiErrorMessage || 'Erro ao buscar os posts.')
-      } finally {
-        setIsLoadingPosts(false)
-      }
+        const postsPage: Page<Post> = await postService.getAllAdminPosts({ page: 0, size: 10 /*Ajustar se necessário, ou se quiser. Tanto faz*/ })
+        console.log(postsPage) // Log aqui
+        setPosts(postsPage.content)
+      } catch (err) { /* ... tratamento de erro ... */ 
+          const apiErrorMessage = (err as Error).message
+          setPostsError(apiErrorMessage || 'Erro ao buscar os posts.')
+      } finally { setIsLoadingPosts(false) }
     }
-
     fetchPosts()
   }, [])
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setFormError(null)
-    setSuccessMessage(null)
-    // LEMBRETE: Atualizar o backend PostCreateDTO para aceitar coverImageUrl
-    const payload: PostPayload = { /* ... payload ... */ 
-        title, content, status, 
-        tags: tags.split(',').map(tag => tag.trim()).filter(tag => tag),
-        coverImageUrl: coverImageUrl || null,
-    }
-    try {
-      const newPost = await postService.createPost(payload)
-      setSuccessMessage(`Post "${newPost.title}" criado com sucesso!`)
-      // Limpa formulário
-       setTitle(''); setContent(''); setStatus(PostStatus.DRAFT); setTags(''); setCoverImageUrl('');
-       setPosts(prevPosts => [newPost, ...prevPosts])
-    } catch (err) { /* ... tratamento de erro ... */ 
-      const apiErrorMessage = (err as Error).message
-      setFormError(apiErrorMessage || 'Erro ao criar o post. Tente novamente.')
-    } finally { setIsSubmitting(false) }
+  const handleEditPost = (slug: string) => {
+    navigate(`/admin/posts/editar/${slug}`)
   }
 
   const openDeleteConfirmation = (post: Post) => {
-    setPostToDelete(post) // Guarda o post
-    setIsDeleteDialogOpen(true) // Abre o modal
+    setPostToDelete(post)
+    setIsDeleteDialogOpen(true)
   }
 
   const confirmDeletePost = async () => {
-    if (!postToDelete) return // Segurança extra
-
+    if (!postToDelete) return
+    setIsLoadingPosts(true) 
+    setPostsError(null); // Limpa erros anteriores eu acho
     try {
-      setIsLoadingPosts(true) 
-      await postService.deletePost(postToDelete.id) 
+      await postService.deletePost(postToDelete.id)
       setPosts(prevPosts => prevPosts.filter(p => p.id !== postToDelete.id))
-      // setSuccessMessage(`Post "${postToDelete.title}" excluído com sucesso.`); // Mensagem opcional
-    } catch (err) {
-      const apiErrorMessage = (err as Error).message
-      // Mostra o erro no estado de erro da lista por enquanto
-      setPostsError(apiErrorMessage || `Erro ao excluir o post ${postToDelete.title}.`) 
+    } catch (err) { 
+        const apiErrorMessage = (err as Error).message
+        setPostsError(apiErrorMessage || `Erro ao excluir o post ${postToDelete.title}.`)
     } finally {
       setIsLoadingPosts(false)
-      closeDeleteDialog() // Fecha o modal independentemente do resultado
+      closeDeleteDialog()
     }
   }
 
@@ -114,74 +111,50 @@ export const DashboardPage = () => {
     setIsDeleteDialogOpen(false)
     setPostToDelete(null)
   }
-
-  const handleEditPost = (slug: string) => {
-    navigate(`/admin/posts/editar/${slug}`)
-    //openDeleteConfirmation(posts.find(p => p.id === postId)!, true);
-  }
-
-  const handleDeletePost = async (postId: string) => {
-    if (window.confirm(`Tem certeza que deseja deletar o post ID ${postId}? Esta ação não pode ser desfeita.`)) {
-      try{
-        setIsLoadingPosts(true)
-        await postService.deletePost(postId)
-        // Remove o post da lista localmente após sucesso
-        setPosts(prevPosts => prevPosts.filter(post => post.id !== postId))
-        setSuccessMessage(`Post ID ${postId} excluído com sucesso.`)
-      } catch (err) {
-        const apiErrorMessage = (err as Error).message
-        setPostsError(apiErrorMessage || `Erro ao deletar o post ID ${postId}.`)
-      } finally {
-        setIsLoadingPosts(false)
-      }
-    }
-  }
-  // --- Fim da lógica do formulário ---
+  // ------------------------------------------
 
   return (
-    <div className="container mx-auto p-4 md:p-8 relative"> 
+    <div className="container mx-auto p-4 md:p-8 relative">
+      {/* Comentando isso aqui pq ficou feio
       <div className="absolute top-4 right-4 md:top-8 md:right-8">
         <ThemeToggle />
       </div>
-
-      <section className="mb-12">
-            <h1 className="mb-6 text-3xl font-bold">Novo Post (Bem-vindo, {user?.name || 'Admin'}!)</h1>
-            <form onSubmit={handleSubmit} className="space-y-6 rounded-xl bg-secondary-bg p-6 content-panel transition-colors duration-500">
-                {/* ... (mensagens de feedback e campos do formulário) ... */}
-                 {formError && ( <div className="rounded-md bg-destructive p-3 text-sm text-destructive-foreground">{formError}</div> )}
-                 {successMessage && ( <div className="rounded-md bg-green-600 p-3 text-sm text-white">{successMessage}</div> )}
-                 <div><label htmlFor="title">Título</label><Input id="title" value={title} onChange={(e) => setTitle(e.target.value)} required disabled={isSubmitting} /></div>
-                 <div><label htmlFor="content">Conteúdo (Markdown)</label><Textarea id="content" value={content} onChange={(e) => setContent(e.target.value)} rows={10} required disabled={isSubmitting} /></div>
-                 <div><label htmlFor="coverImageUrl">URL da Imagem de Capa (Opcional)</label><Input id="coverImageUrl" type="url" value={coverImageUrl} onChange={(e) => setCoverImageUrl(e.target.value)} disabled={isSubmitting} /></div>
-                 <div><label htmlFor="tags">Tags (separadas por vírgula)</label><Input id="tags" value={tags} onChange={(e) => setTags(e.target.value)} disabled={isSubmitting} /></div>
-                 <div><label htmlFor="status">Status</label><Select id="status" value={status} onChange={(e) => setStatus(e.target.value as PostStatus)} required disabled={isSubmitting}>{Object.entries(PostStatus).map(([key, value]) => ( <option key={value} value={value}>{key}</option> ))}</Select></div>
-                 <div className="flex justify-end"><Button type="submit" disabled={isSubmitting}>{isSubmitting ? 'Salvando...' : 'Salvar Post'}</Button></div>
-            </form>
-       </section>
+      
+      */}
 
       <section>
-        <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-3xl font-bold text-text-dark">Posts Existentes ({posts.length})</h2>
-            {/* TODO: Adicionar filtros ou paginação aqui */}
+        <div className="mb-6 flex flex-col items-start justify-between md:flex-row md:items-center">
+          <h2 className="text-3xl font-bold text-text-dark mb-4 md:mb-0">
+            Gerenciar Posts ({posts.length})
+          </h2>
+          <Button 
+            onClick={() => navigate('/admin/posts/novo')}
+            className="flex items-center space-x-2 neon-glow-button uppercase tracking-widest hover:scale-[1.02]"
+            // size="lg" É opçional, o padrão já é bom. Mas se quiser um botãozão, só descomentar
+          >
+            <Plus className="h-5 w-5" />
+            <span>Criar Novo Post</span>
+          </Button>
         </div>
+        {/* -------------------------------------------------------- */}
 
-        {/* Container da Lista */}
+
+        {/* Container da Lista  */}
         <div className="rounded-xl bg-secondary-bg p-4 content-panel transition-colors duration-500">
+          {/* Estados de Loading/Error/No Posts  */}
           {isLoadingPosts && <p className="text-center text-text-muted py-4">Carregando posts...</p>}
           {postsError && <p className="text-center text-destructive py-4">{postsError}</p>}
           {!isLoadingPosts && !postsError && posts.length === 0 && (
-            <p className="text-center text-text-muted py-4">Nenhum post encontrado.</p>
+            <p className="text-center text-text-muted py-4">Nenhum post criado ainda.</p>
           )}
 
-          {/* Renderiza a tabela APENAS se houver posts e não estiver carregando/erro */}
+          {/* Tabela */}
           {!isLoadingPosts && !postsError && posts.length > 0 && (
-            // A tabela só será visível em 'md' para cima, como no protótipo
             <div className="hidden md:block"> 
               <Table>
                 <TableHeader>
                   <TableRow>
-                    {/* Colunas baseadas no protótipo */}
-                    <TableHead className="w-[40%]">Título</TableHead> {/* Ajuste a largura conforme necessário */}
+                    <TableHead className="w-[40%]">Título</TableHead>
                     <TableHead>Data Criação</TableHead> 
                     <TableHead>Status</TableHead>
                     <TableHead className="text-right">Ações</TableHead>
@@ -192,34 +165,27 @@ export const DashboardPage = () => {
                     <TableRow key={post.id}>
                       <TableCell className="font-medium">{post.title}</TableCell>
                       <TableCell className="text-text-muted">
-                        {/* Formatação simples da data (Melhoria Futura: date-fns) */}
                         {new Date(post.createdAt).toLocaleDateString('pt-BR')} 
-                      </TableCell>
+                      </TableCell> {/** */}
                       <TableCell>
-                        <Badge variant={post.status === PostStatus.PUBLISHED ? 'success' : 'warning'}>
-                          {post.status === PostStatus.PUBLISHED ? 'Publicado' : 'Rascunho'}
+                        <Badge 
+                          variant={
+                            post.status === PostStatus.PUBLISHED 
+                              ? 'success' 
+                              : post.status === PostStatus.ARCHIVED
+                              ? 'destructive' 
+                              : 'warning'
+                          }>
+                          {post.status === PostStatus.PUBLISHED 
+                            ? 'Publicado' 
+                            : post.status === PostStatus.ARCHIVED
+                            ? 'Arquivado'
+                            : 'Rascunho'}
                         </Badge>
                       </TableCell>
                       <TableCell className="text-right space-x-2">
-                        {/* Botões de Ação */}
-                        <Button 
-                          variant="ghost" 
-                          size="icon" 
-                          onClick={() => handleEditPost(post.slug)}
-                          className="text-accent-neon hover:text-accent-neon/80"
-                          aria-label={`Editar post ${post.title}`}
-                        >
-                          <Pencil className="h-5 w-5" />
-                        </Button>
-                        <Button 
-                          variant="ghost" 
-                          size="icon" 
-                          onClick={() => openDeleteConfirmation(post)}
-                          className="text-danger-red hover:text-danger-red/80"
-                          aria-label={`Excluir post ${post.title}`}
-                        >
-                          <Trash2 className="h-5 w-5" />
-                        </Button>
+                        <Button variant="ghost" size="icon" onClick={() => handleEditPost(post.slug)} className="text-accent-neon hover:text-accent-neon/80" aria-label={`Editar post ${post.title}`}> <Pencil className="h-5 w-5" /> </Button>
+                        <Button variant="ghost" size="icon" onClick={() => openDeleteConfirmation(post)} className="text-danger-red hover:text-danger-red/80" aria-label={`Excluir post ${post.title}`}> <Trash2 className="h-5 w-5" /> </Button>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -227,13 +193,11 @@ export const DashboardPage = () => {
               </Table>
             </div>
           )}
-
           {/* TODO: Adicionar a renderização dos Cards para mobile aqui */}
-          {/* <div className="md:hidden space-y-4"> ... </div> */}
-
         </div>
       </section>
 
+      {/* AlertDialog*/}
       <AlertDialog
         isOpen={isDeleteDialogOpen}
         onClose={closeDeleteDialog}

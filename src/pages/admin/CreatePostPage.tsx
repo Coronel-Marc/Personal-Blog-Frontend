@@ -1,8 +1,34 @@
+/**
+ * Página para criar um novo post.
+ * Assim como eu fiz em DashboardPage e EditPostPage, vou comentar o que cada parte faz.
+ * 
+ * Componentes principais usados:
+ * - PostForm: Componente reutilizável para o formulário de criação/edição de posts.
+ * - Button: Botão estilizado para ações.
+ * 
+ * Estados principais:
+ * - isSubmitting: Indica se o formulário está sendo submetido.
+ * - submitError: Armazena mensagens de erro da API durante a criação.
+ * - submitSuccessMessage: Armazena mensagens de sucesso após criar o post.
+ * Funções principais:
+ * - handleCreate: Função chamada ao submeter o formulário, que chama o serviço para criar o post via API.
+ * Layout:
+ * - Um título "Criar Novo Post".
+ * - O componente PostForm, passando as props necessárias para criação.
+ * 
+ * TODOs futuros:
+ * - Adicionar upload de imagem para coverImageUrl.
+ * - Melhorar validação dos campos no PostForm.
+ * 
+ * Espero que esses comentários ajudem a entender o que cada parte faz!
+ * Só queria ter um bloguinho pessoal...
+*/
+
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom' // Para redirecionar após sucesso
+import { useNavigate } from 'react-router-dom'
 import { postService } from '@/services/postService'
 import type { PostPayload } from '@/types/api'
-import { PostForm } from '@/components/shared/PostForm' // 1. Importa o formulário
+import { PostForm } from '@/components/shared/PostForm'
 
 export const CreatePostPage = () => {
   const navigate = useNavigate() // Hook para navegação
@@ -27,15 +53,15 @@ export const CreatePostPage = () => {
       // Redireciona para o dashboard após um pequeno delay para mostrar a mensagem
       setTimeout(() => {
         navigate('/admin') // Volta para a lista de posts
-      }, 1500) // Espera 1.5 segundos
+      }, 1500) // Espera um tempinho
 
     } catch (err) {
       const apiErrorMessage = (err as Error).message
       setSubmitError(apiErrorMessage || 'Erro ao criar o post. Tente novamente.')
       setIsSubmitting(false) // Permite tentar novamente em caso de erro
     } 
-    // Não definimos setIsLoading(false) no 'finally' aqui, 
-    // pois queremos manter o botão desabilitado após o sucesso durante o redirecionamento.
+    // Sem setIsLoading(false) no 'finally' aqui, 
+    // pois quero manter o botão desabilitado após o sucesso durante o redirecionamento. Tem que testar isso.
   }
 
   return (
@@ -48,7 +74,6 @@ export const CreatePostPage = () => {
         isSubmitting={isSubmitting}
         submitError={submitError}
         submitSuccessMessage={submitSuccessMessage}
-        // Não passamos initialData, pois é um post novo
       />
     </div>
   )
