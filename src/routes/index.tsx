@@ -1,17 +1,18 @@
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 
-import { PublicLayout } from "@/layouts/PublicLayout";
-import { AdminLayout } from "@/layouts/AdminLayout";
-import { ProtectedRoute } from "@/routes/ProtectedRoute";
+import { PublicLayout } from '@/layouts/PublicLayout';
+import { AdminLayout } from '@/layouts/AdminLayout';
+import { ProtectedRoute } from '@/routes/ProtectedRoute';
 
-import { HomePage } from "@/pages/public/HomePage";
-import { AboutPage } from "@/pages/public/AboutPage";
-import { PostPage } from "@/pages/public/PostPage";
-import { NotFoundPage } from "@/pages/public/NotFoundPage";
-import { PortfolioPage } from "@/pages/public/PortfolioPage";
+import { HomePage } from '@/pages/public/HomePage';
+import { AboutPage } from '@/pages/public/AboutPage';
+import { PostPage } from '@/pages/public/PostPage';
+import { NotFoundPage } from '@/pages/public/NotFoundPage';
+import { PortfolioPage } from '@/pages/public/PortfolioPage';
+import { BlogListPage } from '@/pages/public/BlogListPage';
 
-import { LoginPage } from "@/pages/admin/LoginPage";
-import { DashboardPage } from "@/pages/admin/DashboardPage";
+import { LoginPage } from '@/pages/admin/LoginPage';
+import { DashboardPage } from '@/pages/admin/DashboardPage';
 import { CreatePostPage } from '@/pages/admin/CreatePostPage'
 import { EditPostPage } from '@/pages/admin/EditPostPage'
 
@@ -21,22 +22,15 @@ const router = createBrowserRouter([
         element: <PublicLayout />,
         errorElement: <NotFoundPage />,
         children: [
-            {
-                index: true,
-                element: <HomePage />
-            },
-            {
-                path: 'post/:slug',
-                element: <PostPage />
-            },
-            {
-                path: '/about',
-                element: <AboutPage />
-            },
-            {
-                path: '/portfolio',
-                element: <PortfolioPage />
-            },
+            { index: true, element: <HomePage /> },
+
+            { path: 'post/:slug', element: <PostPage /> },
+            
+            { path: '/about', element: <AboutPage /> },
+
+            { path: '/portfolio', element: <PortfolioPage /> },
+
+            { path: '/blog', element: <BlogListPage />}
         ]
     },
     {
