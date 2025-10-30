@@ -1,73 +1,74 @@
-# React + TypeScript + Vite
+# Frontend do meu blog
+Um projeto React moderno para blog pessoal com área administrativa protegida, desenvolvido com TypeScript e Tailwind CSS.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Sobre o projeto
+Este é um frontend para blog pessoal que permite gerenciar posts através de uma área administrativa protegida. O projeto possui duas áreas principais:
 
-Currently, two official plugins are available:
+- **Área Pública**: Exibe posts, informações sobre o autor e portfólio
+- **Área Administrativa**: Interface protegida para gerenciar posts (CRUD)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tecnologias Utilizadas
 
-## React Compiler
+- React
+- TypeScript
+- Tailwind CSS
+- React Router DOM
+- Context API
+- Axios
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Autenticação
 
-## Expanding the ESLint configuration
+O sistema utiliza autenticação JWT para proteger a área administrativa. O `AuthContext` gerencia o estado de autenticação globalmente.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Funcionalidades Principais
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Área Pública
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- Listagem de posts
+- Visualização individual de post
+- Página Sobre
+- Portfólio
+- Página inicial com seção hero
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Área Administrativa
+
+- Login seguro
+- Dashboard com listagem de posts
+- CRUD completo de posts
+- Suporte a posts com status (Publicado/Rascunho/Arquivado)
+
+## UI/UX
+
+- Design responsivo
+- Suporte a tema claro/escuro
+- Componentes UI reutilizáveis
+- Feedback visual para ações do usuário
+- Interface adaptativa (tabela em desktop, cards em mobile)
+
+## Segurança
+
+- Rotas protegidas via `ProtectedRoute`
+- Tokens JWT armazenados de forma segura
+- Validação de formulários
+- Tratamento de erros consistente
+
+## Configuração e Uso
+
+1. Clone o repositório
+2. Instale as depêndencias:
+``` 
+npm install
 ```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+3. Configure as variáveis de ambiente
+4. Execute o projeto:
 ```
+npm run dev
+```
+## TO-DOs
+- [] Implementar paginação na listagem de posts
+- [] Adicionar filtros de busca
+- [] Implementar preview de posts
+- [] Adicionar testes automatizados
+
+## Licença
+Este projeto está sob a licença MIT.
