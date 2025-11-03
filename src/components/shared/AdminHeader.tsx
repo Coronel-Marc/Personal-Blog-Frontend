@@ -8,7 +8,7 @@ export const AdminHeader = () => {
   const { user, logout } = useAuth()
 
   const handleLogout = () => {
-    // TODO: Adicionar modal de confirmação como no protótipo
+    // TODO: Adicionar modal de confirmação
     // Por enquanto, executa o logout diretamente
     logout()
   }
@@ -43,7 +43,7 @@ export const AdminHeader = () => {
             className="flex items-center space-x-2"
           >
             <LogOut className="h-5 w-5" />
-            <span className="hidden sm:inline">Sair</span> {/* Esconde texto em mobile */}
+            <span className="hidden sm:inline">Sair</span>
           </Button>
         </div>
       </div>

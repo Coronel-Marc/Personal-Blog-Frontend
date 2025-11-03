@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { postService } from '@/services/postService'
 import type { Post, Page } from '@/types/api'
-import { PostCard } from '@/components/shared/PostCard' // Reutiliza o PostCard
+import { PostCard } from '@/components/shared/PostCard'
 
 export const BlogListPage = () => {
   // Estados para busca e exibição
@@ -16,8 +16,6 @@ export const BlogListPage = () => {
       setIsLoading(true)
       setError(null)
       try {
-        // Busca a primeira página de posts publicados (ex: 12 posts por página)
-        // Usamos getAllPublicPosts que já filtra por status 'PUBLISHED' no service
         const postsPage: Page<Post> = await postService.getAllPublicPosts({ page: 0, size: 12 }) 
         setPosts(postsPage.content)
         // TODO: Guardar informações de paginação (totalPages, etc.)
@@ -30,7 +28,7 @@ export const BlogListPage = () => {
     }
 
     fetchPosts()
-  }, []) // Roda apenas na montagem
+  }, []) 
 
   return (
     <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">

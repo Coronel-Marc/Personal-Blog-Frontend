@@ -1,5 +1,5 @@
 import { Link, NavLink } from 'react-router-dom'
-import { Zap, Menu, X } from 'lucide-react' // Ícone de exemplo
+import { Zap, Menu, X } from 'lucide-react' // Ícone de exemplo, mudar isso na proxima atualização
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
 import { Button } from '@/components/ui/Button'
 import { cn } from '@/utils/cn'
@@ -30,13 +30,12 @@ export const Header = () => {
                     onClick={closeMobileMenu}
                 >
                     <Zap className='h-8 w-8' />
-                    {/* TODO: Trocar 'BLOG NAME' pelo nome real do blog, que eu ainda não decidi qual é */}
-                    <span>Marco Zero</span>
+                    {/* ACHO que esse é o nome oficial do blog */}
+                    <span>The Code & Road</span>
                 </Link>
 
                 <div className='flex items-center space-x-4 md:space-x-6'>
                     <div className='hidden items-center space-x-6 md:flex'>
-                        {/* TODO: Atualizar os links ('to') quando as rotas existirem */}
                         <NavLink 
                             to="/" 
                             className={({ isActive }) => cn(navLinkClasses, isActive && activeNavLinkClasses)}
@@ -56,15 +55,13 @@ export const Header = () => {
                             Portfólio
                         </NavLink>
                         
-                        {/* Link para o Admin (Usando o Button outline) */}
                         {/* TODO: Esconder este botão baseado no useAuth() no futuro */}
                         <Link to='/admin'>
                             <Button variant='outline' size='sm' className='ml-4'> Admin </Button>
                         </Link>
                     </div>
                     <ThemeToggle />
-
-                    {/* TODO: Adicionar um botão 'Menu Hamburger' para mobile */}
+                    
                     <div className="md:hidden">
                         <Button
                         variant="ghost"

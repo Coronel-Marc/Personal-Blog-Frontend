@@ -8,7 +8,6 @@ export const PublicLayout = () => {
             <Header />
 
             <main className="flex-grow">
-                {/* Onde o React-router vai renderizar as rotas filhas */}
                 <Outlet />
             </main>
 

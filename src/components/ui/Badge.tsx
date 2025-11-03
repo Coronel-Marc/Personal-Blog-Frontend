@@ -16,7 +16,7 @@ const badgeVariants = cva(
           
         // Variante Primária (usa accent-neon/roxo)
         primary:
-          'border-transparent bg-primary text-primary-foreground', // Adaptação: Usa primary (accent-neon)
+          'border-transparent bg-primary text-primary-foreground', 
           
         // Variante Secundária (igual ao default, mas explícito)
         secondary:
@@ -27,35 +27,31 @@ const badgeVariants = cva(
           'border-transparent bg-destructive text-destructive-foreground',
           
         // Variante Outline (apenas borda da cor de texto)
-        outline: 'text-foreground', // Usa a cor de texto padrão
+        outline: 'text-foreground',
 
         // --- Novas Variantes para Status ---
-        // Baseado nas cores do seu protótipo
-        // Usaremos verde para 'Published' e amarelo/laranja para 'Draft'
         success: // Para 'Published'
-          'border-transparent bg-green-500/20 text-green-400 dark:bg-green-500/20 dark:text-green-400', // Cores fixas para clareza
+          'border-transparent bg-green-500/20 text-green-400 dark:bg-green-500/20 dark:text-green-400',
         warning: // Para 'Draft'
-           'border-transparent bg-yellow-500/20 text-yellow-400 dark:bg-yellow-500/20 dark:text-yellow-400', // Cores fixas para clareza
+           'border-transparent bg-yellow-500/20 text-yellow-400 dark:bg-yellow-500/20 dark:text-yellow-400',
       },
     },
     defaultVariants: {
-      variant: 'default', // Define 'default' como padrão
+      variant: 'default',
     },
   }
 )
 
-// 2. Define as props do componente
 export interface BadgeProps
-  extends React.HTMLAttributes<HTMLDivElement>, // É um div, não um botão
+  extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof badgeVariants> {}
 
-// 3. O Componente (sem forwardRef, pois geralmente não é necessário para Badge)
 function Badge({ className, variant, ...props }: BadgeProps) {
   return (
     <div 
       className={cn(badgeVariants({ variant }), className)} 
       {...props} 
-    /> // Passa children e outras props HTML
+    /> 
   )
 }
 

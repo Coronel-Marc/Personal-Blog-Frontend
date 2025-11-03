@@ -31,15 +31,16 @@ import type { PostPayload } from '@/types/api'
 import { PostForm } from '@/components/shared/PostForm'
 
 export const CreatePostPage = () => {
-  const navigate = useNavigate() // Hook para navegação
+  const navigate = useNavigate()
 
   // Estados para controlar o processo de submissão
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
   const [submitSuccessMessage, setSubmitSuccessMessage] = useState<string | null>(null)
 
-  // 2. Função que será passada como 'onSubmit' para o PostForm
+  // Função que será passada como 'onSubmit' para o PostForm
   const handleCreate = async (payload: PostPayload) => {
+
     setIsSubmitting(true)
     setSubmitError(null)
     setSubmitSuccessMessage(null)
@@ -52,23 +53,23 @@ export const CreatePostPage = () => {
       
       // Redireciona para o dashboard após um pequeno delay para mostrar a mensagem
       setTimeout(() => {
-        navigate('/admin') // Volta para a lista de posts
-      }, 1500) // Espera um tempinho
+        navigate('/admin')
+      }, 1500)
 
     } catch (err) {
       const apiErrorMessage = (err as Error).message
       setSubmitError(apiErrorMessage || 'Erro ao criar o post. Tente novamente.')
-      setIsSubmitting(false) // Permite tentar novamente em caso de erro
+      setIsSubmitting(false)
     } 
     // Sem setIsLoading(false) no 'finally' aqui, 
-    // pois quero manter o botão desabilitado após o sucesso durante o redirecionamento. Tem que testar isso.
+    // pois quero manter o botão desabilitado após o sucesso durante o redirecionamento.
   }
 
   return (
     <div className="container mx-auto p-4 md:p-8">
       <h1 className="mb-6 text-3xl font-bold">Criar Novo Post</h1>
       
-      {/* 3. Renderiza o PostForm, passando as props necessárias */}
+      {/* Renderiza o PostForm, passando as props necessárias */}
       <PostForm 
         onSubmit={handleCreate} 
         isSubmitting={isSubmitting}

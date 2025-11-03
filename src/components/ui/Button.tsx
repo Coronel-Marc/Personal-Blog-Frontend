@@ -9,7 +9,7 @@ const buttonVariants = cva(
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
     'focus-visible:ring-ring',
     'focus-visible:ring-offset-primary-bg',
-    'disabled:pointer-events-none disabled:opacity-50', // Estilo desabilitado
+    'disabled:pointer-events-none disabled:opacity-50', 
   ],
 
   {
@@ -28,7 +28,7 @@ const buttonVariants = cva(
         default: 'h-10 px-4 py-2',
         sm: 'h-9 rounded-md px-3',
         lg: 'h-11 rounded-md px-8',
-        icon: 'h-10 w-10', // Para botões de ícone
+        icon: 'h-10 w-10',
       },
     },
     // --- Valores Padrão ---

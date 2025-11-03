@@ -44,7 +44,7 @@ export type PostPayload = {
     content: string
     tags: string[]
     status: PostStatus
-    // Atualizar o backend para suportar imagem de capa via URL ou upload
+
     coverImageUrl?: string | null
 }
 

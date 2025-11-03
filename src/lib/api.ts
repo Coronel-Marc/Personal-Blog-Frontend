@@ -27,7 +27,7 @@ export const apiFetch = async <T>(
         headers.set('Content-Type', 'application/json')
     }
 
-    if (token && endpoint !== '/auth/login') { //<-- Modificação aqui
+    if (token && endpoint !== '/auth/login') { 
         headers.set('Authorization', `Bearer ${token}`)
     }
 

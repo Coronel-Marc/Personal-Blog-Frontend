@@ -6,7 +6,7 @@ export const NotFoundPage = () => {
   return (
     // Centraliza o conteúdo na tela
     <div className="flex min-h-screen flex-col items-center justify-center text-center px-4"> 
-      {/* Ícone de Alerta (Sugestão de ícone) */}
+      {/* Ícone de Alerta (Sugerido pelo Gemini) */}
       <AlertTriangle className="mb-6 h-16 w-16 text-accent-neon transition-colors duration-500 md:h-24 md:w-24" /> 
 
       {/* Título "404" com cor de destaque */}
@@ -27,8 +27,8 @@ export const NotFoundPage = () => {
       {/* Botão para Voltar para Home */}
       <Link to="/">
         <Button 
-          variant="default" // Usa a variante primária (accent-neon)
-          className="neon-glow-button" // Adiciona o efeito de glow
+          variant="default"
+          className="neon-glow-button" 
         >
           Voltar para a Página Inicial
         </Button>

@@ -21,13 +21,11 @@ export const AlertDialog = ({
   message,
   confirmText = 'Confirmar',
   cancelText = 'Cancelar',
-}: AlertDialogProps) => {
-  // Se não estiver aberto, não renderiza nada
+  }: AlertDialogProps) => {
   if (!isOpen) {
     return null
   }
 
-  // Previne clicks no fundo de fecharem o modal
   const handleBackgroundClick = (e: React.MouseEvent<HTMLDivElement>) => {
      if (e.target === e.currentTarget) {
        onClose();
@@ -35,23 +33,22 @@ export const AlertDialog = ({
   }
 
   return (
-    // Overlay de fundo semi-transparente
     <div 
       className="fixed inset-0 z-50 flex items-center justify-center bg-primary-bg/80 p-4 transition-opacity duration-300"
-      onClick={handleBackgroundClick} // Handler para fechar ao clicar fora 
+      onClick={handleBackgroundClick} 
       aria-labelledby="alert-dialog-title"
       role="dialog"
       aria-modal="true"
     >
       {/* Container do Modal */}
       <div className="w-full max-w-sm rounded-xl bg-secondary-bg shadow-2xl transition-colors duration-500 border border-border">
-        {/* Cabeçalho (com cor destrutiva, como no protótipo) */}
+        {/* Cabeçalho */}
         <div id="modalHeader" className="flex items-center justify-between rounded-t-xl bg-destructive px-6 py-4 font-bold text-xl text-destructive-foreground transition-colors duration-500">
           <div className="flex items-center">
             <AlertTriangle className="mr-2 h-6 w-6" aria-hidden="true" /> {/* Ícone de Alerta */}
             <span id="alert-dialog-title">{title}</span>
           </div>
-          {/* Botão de Fechar (opcional, como no protótipo de Configurações) */}
+          {/* Botão de Fechar */}
            <button onClick={onClose} className="text-destructive-foreground/70 hover:text-destructive-foreground">
                <X className="w-6 h-6" />
            </button>

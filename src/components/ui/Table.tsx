@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { cn } from '@/utils/cn'
 
-// --- Componente <Table> (Wrapper Principal) ---
 const Table = React.forwardRef<
   HTMLTableElement,
   React.HTMLAttributes<HTMLTableElement>
@@ -18,12 +17,10 @@ const Table = React.forwardRef<
 ))
 Table.displayName = 'Table'
 
-// --- Componente <TableHeader> ---
 const TableHeader = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
 >(({ className, ...props }, ref) => (
-  // Estilo do cabeçalho (fundo, etc.) - Adaptado do seu protótipo
   <thead 
     ref={ref} 
     className={cn('[&_tr]:border-b border-border bg-secondary-bg/50', className)}
@@ -32,7 +29,6 @@ const TableHeader = React.forwardRef<
 ))
 TableHeader.displayName = 'TableHeader'
 
-// --- Componente <TableBody> ---
 const TableBody = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
@@ -46,12 +42,11 @@ const TableBody = React.forwardRef<
 ))
 TableBody.displayName = 'TableBody'
 
-// --- Componente <TableRow> ---
 const TableRow = React.forwardRef<
   HTMLTableRowElement,
   React.HTMLAttributes<HTMLTableRowElement>
 >(({ className, ...props }, ref) => (
-  // Estilo da linha (hover) - Adaptado do seu protótipo
+  // Estilo da linha (hover)
   <tr
     ref={ref}
     className={cn(
@@ -62,12 +57,11 @@ const TableRow = React.forwardRef<
 ))
 TableRow.displayName = 'TableRow'
 
-// --- Componente <TableHead> (Célula do Cabeçalho) ---
 const TableHead = React.forwardRef<
   HTMLTableCellElement,
   React.ThHTMLAttributes<HTMLTableCellElement>
 >(({ className, ...props }, ref) => (
-  // Estilo da célula do cabeçalho - Adaptado do seu protótipo
+  // Estilo da célula do cabeçalho
   <th
     ref={ref}
     className={cn(
@@ -79,7 +73,6 @@ const TableHead = React.forwardRef<
 ))
 TableHead.displayName = 'TableHead'
 
-// --- Componente <TableCell> (Célula do Corpo) ---
 const TableCell = React.forwardRef<
   HTMLTableCellElement,
   React.TdHTMLAttributes<HTMLTableCellElement>
@@ -92,7 +85,7 @@ const TableCell = React.forwardRef<
 ))
 TableCell.displayName = 'TableCell'
 
-// --- Componente <TableCaption> (Opcional) ---
+
 const TableCaption = React.forwardRef<
   HTMLTableCaptionElement,
   React.HTMLAttributes<HTMLTableCaptionElement>
@@ -105,7 +98,6 @@ const TableCaption = React.forwardRef<
 ))
 TableCaption.displayName = 'TableCaption'
 
-// Exporta todos os componentes
 export {
   Table,
   TableHeader,

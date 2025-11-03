@@ -1,6 +1,8 @@
 import { apiFetch } from "@/lib/api"
 import type { Post, PostPayload, Page } from "@/types/api"
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL
+
 /**
  * Serviço para gerenciar operações relacionadas a posts.
  */
@@ -12,9 +14,6 @@ export const postService = {
    * @returns Uma Promise com o objeto Post criado.
    */
   createPost: async (payload: PostPayload): Promise<Post> => {
-    // Endpoint: POST /posts
-    // Payload: PostCreateDTO (representado pelo nosso PostPayload)
-    // Resposta: PostResponseDTO (representado pelo nosso Post)
 
     return apiFetch<Post>('/posts',{
         method: 'POST',
@@ -80,4 +79,43 @@ export const postService = {
         method: 'DELETE',
     })
   },
+
+  // Função para upload de imagens
+  /**
+   * Faz upload de uma imagem para o endpoint /upload.
+   * Requer autenticação de admin.
+   * @param file - O arquivo de imagem a ser enviado.
+   * @returns Uma Promise com um objeto contendo a URL do arquivo no S3.
+   */
+  uploadImage: async (file: File): Promise<{ fileUrl: string }> => {
+    const formData = new FormData();
+    formData.append('file', file)
+
+    //O ApiFetch precisa de um ajuste para não setar Content Type 
+
+    const token = localStorage.getItem('authToken');
+
+    if (!token) {
+      throw new Error('Não antenticado para fazer upload.')
+    }
+
+    const response = await fetch (`${BASE_URL}/upload`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+      body: formData,
+    })
+
+    if (!response.ok) {
+      try {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Erro no upload da imagem')     
+      } catch (e) {
+        throw new Error(`Erro no upload: ${response.statusText}`)
+      }
+    }
+
+    return response.json();
+  }
 }

@@ -11,19 +11,18 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             <div className="relative">
                 <select
                     className={cn(
-                        // --- Estilos Base (Similares ao Input) ---
-                        'flex h-10 w-full appearance-none rounded-md border bg-transparent py-2 pl-3 pr-8 text-sm', // appearance-none remove o estilo padrão
-                        'border-input', // Nosso token de borda
-                        'text-foreground', // Nosso token de texto
+                        // --- Estilos Base ---
+                        'flex h-10 w-full appearance-none rounded-md border bg-transparent py-2 pl-3 pr-8 text-sm',
+                        'border-input',
+                        'text-foreground',
                         
-                        // Estilos de Foco (Iguais ao Input/Textarea)
+                        // Estilos de Foco
                         'focus:outline-none focus:ring-2 focus:ring-offset-2',
-                        'focus:ring-primary', // Anel Roxo
+                        'focus:ring-primary',
                         'focus:ring-offset-background',
 
                         // Estilos de Desabilitado
                         'disabled:cursor-not-allowed disabled:opacity-50',
-                        // --- Fim dos Estilos Base ---
 
                         className
                     )}
@@ -32,7 +31,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                 >
                     {children}
                 </select>
-                {/* 4. Adiciona um ícone de seta customizado (Chevron Down) */}
+                
                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-foreground">
                     <svg
                         className="h-4 w-4"

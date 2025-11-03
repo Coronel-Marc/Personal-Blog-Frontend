@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { postService } from '@/services/postService'
 import type { PostPayload, Post } from '@/types/api'
 import { PostForm } from '@/components/shared/PostForm'
-import { Button } from '@/components/ui/Button' // Para o botão Cancelar
+import { Button } from '@/components/ui/Button'
 
 export const EditPostPage = () => {
   const { slug } = useParams<{ slug: string }>()
@@ -36,7 +36,6 @@ export const EditPostPage = () => {
         setPostData(data)
       } catch (err) {
         const apiErrorMessage = (err as Error).message
-        // Sua API retorna 404 se não encontrar
         setFetchError(apiErrorMessage || `Post com slug "${slug}" não encontrado.`)
       } finally {
         setIsLoadingData(false)
@@ -48,7 +47,6 @@ export const EditPostPage = () => {
 
   // Função passada para o onSubmit do PostForm
   const handleUpdate = async (payload: PostPayload) => {
-    // Precisamos do ID do post para a chamada de update
     if (!postData?.id) {
         setSubmitError("Erro interno: ID do post não encontrado para atualização.");
         return;
@@ -78,13 +76,12 @@ export const EditPostPage = () => {
     // Não colocar finally aqui pelo mesmo motivo da CreatePostPage
   }
 
-  // Botão Cancelar
   const cancelButton = (
     <Button 
-      type="button" // Importante: type="button" para não submeter o form
+      type="button" 
       variant="outline" 
-      onClick={() => navigate('/admin')} // Volta para o dashboard
-      disabled={isSubmitting} // Desabilita durante a submissão
+      onClick={() => navigate('/admin')} 
+      disabled={isSubmitting}
     >
       Cancelar
     </Button>
@@ -100,8 +97,7 @@ export const EditPostPage = () => {
   }
 
   if (!postData) {
-      // Segurança extra, caso postData seja null mesmo sem erro (não deve acontecer)
-      return <div className="container mx-auto p-8 text-center text-text-muted">Post não encontrado.</div>
+    return <div className="container mx-auto p-8 text-center text-text-muted">Post não encontrado.</div>
   }
 
   return (

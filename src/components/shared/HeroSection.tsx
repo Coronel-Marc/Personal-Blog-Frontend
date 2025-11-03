@@ -26,20 +26,19 @@ export const HeroSection = ({className}: HeroSectionProps) => {
 
             <div className='relative mx-auto max-w-7xl px-4 py-20 text-center sm:px-6 lg:px-8'>
                 <p className='mb-4 text-xl font-semibold uppercase tracking-widest text-accent-neon transition-colors duration-500'>
-                    Motores, Neon e Nostalgia
+                    Tecnologia, Viagens e Nostalgia
                 </p>
                 <h1 className='mb-6 text-6xl font-extrabold leading-tight text-text-dark transition-colors duration-500 sm:text-7xl'>
-                    Seu ponto de partida para o {' '}
-                    <span className='text-accent-neon transition-colors duration-500'>Synthwave</span>
+                    Meu espaço pessoal sobre {' '}
+                    <span className='text-accent-neon transition-colors duration-500'>Software e Motos</span>
                 </h1>
                 <p className='mx-auto mb-8 max-w-3xl text-lg text-text-muted transition-colors duration-500'>
-                    Explore o melhor da cultura retrô-futurista, dos clássicos automotivos à trilha sonora perfeita.
+                    Explore o melhor da cultura retrô-futurista, dos clássicos automotivos à trilha sonora que mais tenho ouvido nos ultimos anos.                    
                 </p>
                 <Link to='/blog'>
                     <Button
                     size='lg'
                     className='neon-glow-button px-8 py-4 uppercase tracking-widest hover:scale-[1.05]'
-                    // TODO: Adicionar ação ao botão (link para posts recentes, talvez?)
                 >
                     Posts Recentes
                 </Button>                

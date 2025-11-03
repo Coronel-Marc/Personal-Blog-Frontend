@@ -52,13 +52,12 @@ export const PostPage = () => {
     return <div className='container mx-auto p-8 text-center text-destructive'>{error}</div>
   }
 
-  // Se chegou aqui e post ainda é null (não deveria acontecer, mas por segurança)
   if (!post) {
     return <div className='container mx-auto p-8 text-center text-text-muted'>Post não encontrado.</div>
   }
 
   // Renderização do post
-  // Placeholder da imagem se não tiver uma
+  // Placeholder por enquanto
   const imageUrl = post.coverImageUrl || `https://placehold.co/1200x500/1A112B/AC25E6?text=Pleice_Rouder`
   return (
     <article className='container mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8'>

@@ -72,9 +72,9 @@ export const DashboardPage = () => {
       setPostsError(null)
       try {
         const postsPage: Page<Post> = await postService.getAllAdminPosts({ page: 0, size: 10 /*Ajustar se necessário, ou se quiser. Tanto faz*/ })
-        console.log(postsPage) // Log aqui
+        //console.log(postsPage)
         setPosts(postsPage.content)
-      } catch (err) { /* ... tratamento de erro ... */ 
+      } catch (err) { 
           const apiErrorMessage = (err as Error).message
           setPostsError(apiErrorMessage || 'Erro ao buscar os posts.')
       } finally { setIsLoadingPosts(false) }
@@ -94,7 +94,7 @@ export const DashboardPage = () => {
   const confirmDeletePost = async () => {
     if (!postToDelete) return
     setIsLoadingPosts(true) 
-    setPostsError(null); // Limpa erros anteriores eu acho
+    setPostsError(null);
     try {
       await postService.deletePost(postToDelete.id)
       setPosts(prevPosts => prevPosts.filter(p => p.id !== postToDelete.id))
@@ -111,7 +111,6 @@ export const DashboardPage = () => {
     setIsDeleteDialogOpen(false)
     setPostToDelete(null)
   }
-  // ------------------------------------------
 
   return (
     <div className="container mx-auto p-4 md:p-8 relative">
@@ -136,7 +135,6 @@ export const DashboardPage = () => {
             <span>Criar Novo Post</span>
           </Button>
         </div>
-        {/* -------------------------------------------------------- */}
 
 
         {/* Container da Lista  */}
@@ -166,7 +164,7 @@ export const DashboardPage = () => {
                       <TableCell className="font-medium">{post.title}</TableCell>
                       <TableCell className="text-text-muted">
                         {new Date(post.createdAt).toLocaleDateString('pt-BR')} 
-                      </TableCell> {/** */}
+                      </TableCell> 
                       <TableCell>
                         <Badge 
                           variant={
@@ -197,7 +195,6 @@ export const DashboardPage = () => {
         </div>
       </section>
 
-      {/* AlertDialog*/}
       <AlertDialog
         isOpen={isDeleteDialogOpen}
         onClose={closeDeleteDialog}

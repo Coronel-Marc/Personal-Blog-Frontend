@@ -11,7 +11,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
                 className={cn(
 
                     // --- Estilos Base (Adaptados do Input, mas sem altura fixa 'h-10') ---
-                    'flex min-h-[80px] w-full rounded-md border bg-transparent px-3 py-2 text-sm', // min-h-[80px] define altura mínima
+                    'flex min-h-[80px] w-full rounded-md border bg-transparent px-3 py-2 text-sm',
                     'border-input',
                     'text-foreground',
                     'placeholder:text-secondary-foreground',
