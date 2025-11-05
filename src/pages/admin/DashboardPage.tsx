@@ -51,12 +51,12 @@ import {
 import { Badge } from '@/components/ui/Badge'
 import { AlertDialog } from '@/components/ui/AlertDialog'
 import { Button } from '@/components/ui/Button'
-import { useAuth } from '@/context/AuthContext'
-import { ThemeToggle } from '@/components/ui/ThemeToggle'
+//import { useAuth } from '@/context/AuthContext'
+//import { ThemeToggle } from '@/components/ui/ThemeToggle'
 import { Pencil, Trash2, Plus } from 'lucide-react'
 
 export const DashboardPage = () => {
-  const { user } = useAuth()
+  //const { user } = useAuth()
   const navigate = useNavigate()
 
   const [posts, setPosts] = useState<Post[]>([])

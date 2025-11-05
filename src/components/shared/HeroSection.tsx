@@ -1,4 +1,4 @@
-import React from 'react'
+//import React from 'react'
 import { Button } from '@/components/ui/Button'
 import { cn } from '@/utils/cn'
 import {useTheme } from '@/context/ThemeContext'
@@ -11,8 +11,8 @@ interface HeroSectionProps {
 export const HeroSection = ({className}: HeroSectionProps) => {
     const { theme } = useTheme()
     // TODO: Substituir URL da imagem de fundo quando eu tiver uma imagem melhor
-    const heroBgImageUrlDark = "url('https://placehold.co/1920x1080/130a20/AC25E6?text=Night+Rider+BG')"
-    const heroBgImageLightUrl = "url('https://placehold.co/1920x1080/F9F3F6/D8436B?text=Sunset+Vibes+BG')"
+    const heroBgImageUrlDark = "url('https://placehold.co/1920x1080/130a20/AC25E6?text=' .')" // Quando tiver o bendito background, ele vai aqui
+    const heroBgImageLightUrl = "url('https://placehold.co/1920x1080/F9F3F6/D8436B?text='. ')" // E aqui
 
     const currentHeroBgImage = theme === 'dark' ? heroBgImageUrlDark : heroBgImageLightUrl
 
@@ -33,7 +33,7 @@ export const HeroSection = ({className}: HeroSectionProps) => {
                     <span className='text-accent-neon transition-colors duration-500'>Software e Motos</span>
                 </h1>
                 <p className='mx-auto mb-8 max-w-3xl text-lg text-text-muted transition-colors duration-500'>
-                    Explore o melhor da cultura retrô-futurista, dos clássicos automotivos à trilha sonora que mais tenho ouvido nos ultimos anos.                    
+                    {/**Explore o melhor da cultura retrô-futurista, dos clássicos automotivos à trilha sonora que mais tenho ouvido nos ultimos anos.  */}                   
                 </p>
                 <Link to='/blog'>
                     <Button

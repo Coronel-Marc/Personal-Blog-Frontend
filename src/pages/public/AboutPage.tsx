@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 export const AboutPage = () => {
   //TODO: Substituir pela minha foto
-  const profileImageUrl = ""
+  const profileImageUrl = 'https://the-code-and-road-amzn-s3.s3.us-east-2.amazonaws.com/1762179211693_image.jpeg'
   const GITHUB_URL = 'https://github.com/Coronel-Marc'
   const LINKEDIN_URL = 'https://www.linkedin.com/in/g-marcos/'
   return (
@@ -33,8 +33,7 @@ export const AboutPage = () => {
               Olá! Eu sou Marcos, o piloto por traz do <b>The Code & Road</b>.
             </p>
             <p>
-              Sou desenvolvedor Backend com foco em Java e sou apaixonado por dois mundos: a <b>lógica do software</b> e <b>motos clássicas</b>,
-              tudo isso embalado pela trilha sonora que nostálgica synthwave.
+              Sou desenvolvedor Backend com foco em Java e sou apaixonado por dois mundos: a <b>lógica do software</b> e <b>motos clássicas</b>.
             </p>
             <p>
               Este é meu espaço pessoal para mapear duas jornadas: o aprendizado e a construção de sistemas robustos em TI, e as aventuras de estrada a bordo da minha 
@@ -50,6 +49,7 @@ export const AboutPage = () => {
             <p>
               Recentemente, encontrei minha rota principal, decidindo focar com afinco em Java e Spring Boot para construir APIs robustas e escaláveis, utilizando MongoDB e React.
             </p>
+            <p>Paralelamente estudo sobre desenvolvimento de jogos, que é uma area que tenho muito interesse em aprender.</p>
             <p>
               Este blog é o meu primeiro projeto completo, onde você verá o código, os desafios e as histórias por trás da tela e do guidão.
                Seja bem-vindo à estrada. Você pode conferir o resultado do meu aprendizado na seção <Link to="/portfolio">Portfólio</Link>.
